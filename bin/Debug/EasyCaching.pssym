@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Symbols LinesOfCode="40" PostSharpLinesOfCode="0" xmlns="http://schemas.postsharp.org/2.0/symbols">
+  <Class Class="#1=T:[Cache]Cache.Caching.CacheableResultAttribute">
+    <Instance Declaration="#2=M:[EasyCaching]EasyCaching.APIs.BookApi::GetBooks(System.String)" Id="f9c04e186ee65434">
+      <Target />
+      <Target>
+        <JoinPoint Advising="#1" Description="#3=Intercepted by OnInvoke" Ordinal="0" />
+      </Target>
+    </Instance>
+  </Class>
+  <Class Class="#4=T:[Cache]Cache.Caching.AffectedCacheableMethodsAttribute">
+    <Instance Declaration="#5=M:[EasyCaching]EasyCaching.APIs.BookApi::ChangeAuthorName(System.String, System.String)" Id="f9c04e18a00c856f">
+      <Target />
+      <Target>
+        <JoinPoint Advising="#4" Description="#3" />
+      </Target>
+    </Instance>
+  </Class>
+</Symbols>

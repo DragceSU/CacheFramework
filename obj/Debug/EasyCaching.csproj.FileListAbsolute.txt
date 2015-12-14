@@ -1,0 +1,16 @@
+C:\Users\Dragan\Desktop\Cache\EasyCaching\bin\Debug\EasyCaching.exe.config
+C:\Users\Dragan\Desktop\Cache\EasyCaching\bin\Debug\EntityFramework.dll
+C:\Users\Dragan\Desktop\Cache\EasyCaching\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Dragan\Desktop\Cache\EasyCaching\bin\Debug\PostSharp.dll
+C:\Users\Dragan\Desktop\Cache\EasyCaching\bin\Debug\EntityFramework.xml
+C:\Users\Dragan\Desktop\Cache\EasyCaching\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Dragan\Desktop\Cache\EasyCaching\bin\Debug\PostSharp.xml
+C:\Users\Dragan\Desktop\Cache\EasyCaching\obj\Debug\EasyCaching.exe
+C:\Users\Dragan\Desktop\Cache\EasyCaching\obj\Debug\EasyCaching.pdb
+C:\Users\Dragan\Desktop\Cache\EasyCaching\bin\Debug\EasyCaching.exe
+C:\Users\Dragan\Desktop\Cache\EasyCaching\bin\Debug\EasyCaching.pdb
+C:\Users\Dragan\Desktop\Cache\EasyCaching\bin\Debug\EasyCaching.pssym
+C:\Users\Dragan\Desktop\Cache\EasyCaching\obj\Debug\EasyCaching.exe.postsharp
+C:\Users\Dragan\Desktop\Cache\EasyCaching\obj\Debug\EasyCaching.csprojResolveAssemblyReference.cache
+C:\Users\Dragan\Desktop\Cache\EasyCaching\bin\Debug\Cache.dll
+C:\Users\Dragan\Desktop\Cache\EasyCaching\bin\Debug\Cache.pdb
