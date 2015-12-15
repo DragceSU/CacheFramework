@@ -9,7 +9,6 @@ namespace CachingFramework.Core.Interceptions
     public class CacheableResultAttribute : MethodInterceptionAspect
     {
         public override void OnInvoke(MethodInterceptionArgs args)
-        
         {
             var cache = MethodResultCache.GetCache(args.Method, cacheType);
             var arguments = args.Arguments.Union(new[] { WindowsIdentity.GetCurrent().Name }).ToList();

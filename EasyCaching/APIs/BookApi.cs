@@ -9,7 +9,7 @@ namespace EasyCaching.APIs
 
     public class BookApi
     {
-        [CacheableResult(cacheType=CacheType.AppFabric)]
+        [CacheableResult(cacheType=CacheType.NCacheExpress)]
         public static IEnumerable<Book> GetBooks(string authorName)
         {
             Thread.Sleep(1000);

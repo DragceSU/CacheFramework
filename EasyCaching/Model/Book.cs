@@ -1,21 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Book.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace EasyCaching.Model
 {
-  public class Book
-  {
-    public Book()
-    {
-      Authors = new HashSet<Author>();
-    }
+    using System;
+    using System.Collections.Generic;
 
-    public int Id { get; set; }
-    public string Title { get; set; }
-    public virtual ICollection<Author> Authors { get; set; }
-  }
+    /// <summary>
+    /// </summary>
+    [Serializable]
+    public class Book
+    {
+        /// <summary>
+        /// </summary>
+        public Book()
+        {
+            this.Authors = new HashSet<Author>();
+        }
+
+        /// <summary>
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// </summary>
+        public string Title { get; set; }
+
+        /// <summary>
+        /// </summary>
+        public virtual ICollection<Author> Authors { get; set; }
+    }
 }
