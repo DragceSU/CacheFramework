@@ -16,7 +16,6 @@ namespace CachingFramework.Core
         {
             get
             {
-                //return CacheConfiguration.Current.Enabled ? this : _nullCache;
                 return this;
             }
         }

@@ -1,13 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{BD6322A8-D1D0-4831-A125-BF8429721804}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CachingFramework.Core", "CachingFramework.Core\CachingFramework.Core.csproj", "{8B4B1E3E-20CE-46DE-9DE7-86AF5E91D73B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyCaching", "EasyCaching\EasyCaching.csproj", "{CA080308-338A-4E3B-83DA-48801E4E87F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{2401E76A-FC04-4902-B747-F505255EE9A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{DA30B0D0-D64C-49D6-A402-96D52BE6A2FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,11 +27,16 @@ Global
 		{CA080308-338A-4E3B-83DA-48801E4E87F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA080308-338A-4E3B-83DA-48801E4E87F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA080308-338A-4E3B-83DA-48801E4E87F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA30B0D0-D64C-49D6-A402-96D52BE6A2FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA30B0D0-D64C-49D6-A402-96D52BE6A2FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA30B0D0-D64C-49D6-A402-96D52BE6A2FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA30B0D0-D64C-49D6-A402-96D52BE6A2FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8B4B1E3E-20CE-46DE-9DE7-86AF5E91D73B} = {BD6322A8-D1D0-4831-A125-BF8429721804}
+		{DA30B0D0-D64C-49D6-A402-96D52BE6A2FA} = {2401E76A-FC04-4902-B747-F505255EE9A5}
 	EndGlobalSection
 EndGlobal

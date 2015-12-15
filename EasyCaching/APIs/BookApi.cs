@@ -2,6 +2,9 @@
 using System.Threading;
 using EasyCaching.Model;
 using CachingFramework.Core.Interceptions;
+using DAL;
+using DAL.Models;
+using DAL.Repository;
 
 namespace EasyCaching.APIs
 {
@@ -9,7 +12,7 @@ namespace EasyCaching.APIs
 
     public class BookApi
     {
-        [CacheableResult(cacheType=CacheType.NCacheExpress)]
+        [CacheableResult(cacheType = CacheType.NCacheExpress)]
         public static IEnumerable<Book> GetBooks(string authorName)
         {
             Thread.Sleep(1000);
@@ -24,6 +27,14 @@ namespace EasyCaching.APIs
                     new Book {Id = 1, Title = "Life Of Brian", Authors = {new Author {Id = 1, Name = "Ross L. Finney"}}}
                 };
             }
+        }
+
+        [CacheableResult(cacheType = CacheType.NCacheExpress)]
+        public static Person GetPerson(string firstName, string lastName)
+        {
+            Thread.Sleep(1000);
+            var repository = new UserRepository();
+            return repository.GetPersonBy(firstName, lastName);
         }
 
         [AffectedCacheableMethods("EasyCaching.APIs.BookApi.GetBooks")]
