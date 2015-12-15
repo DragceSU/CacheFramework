@@ -1,7 +1,7 @@
 ﻿using System;
 using CachingFramework.Core.Interface;
-using Sixeyed.Core.Configuration;
-using Sixeyed.Core.Logging;
+//using Sixeyed.Core.Configuration;
+//using Sixeyed.Core.Logging;
 using sys = System.Runtime.Caching;
 
 namespace CachingFramework.Core.Caches

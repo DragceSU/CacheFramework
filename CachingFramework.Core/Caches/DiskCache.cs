@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Sixeyed.Core.Configuration;
-using Sixeyed.Core.Cryptography;
-using Sixeyed.Core.Logging;
+//using Sixeyed.Core.Configuration;
+//using Sixeyed.Core.Cryptography;
+//using Sixeyed.Core.Logging;
 
 namespace CachingFramework.Core.Caches
 {
@@ -23,21 +23,21 @@ namespace CachingFramework.Core.Caches
             try
             {
                 //check directory exists
-                _directory = CacheConfiguration.Current.DiskCache.Path;
+                _directory = @"E:\GitHub\DickCache";
                 if (!Directory.Exists(_directory))
                 {
                     _directoryValid = false;
-                    Log.Error("DiskCache - directory specified in diskCache.path config: {0} does not exist. Not caching.", _directory);
+                    //Log.Error("DiskCache - directory specified in diskCache.path config: {0} does not exist. Not caching.", _directory);
                 }
                 else if (HasExceededQuota())
                 {
-                    Log.Warn("DiskCache - exceeded quote for directory specified in diskCache.path config: {0}. Not caching.", _directory);
+                    //Log.Warn("DiskCache - exceeded quote for directory specified in diskCache.path config: {0}. Not caching.", _directory);
                 }
             }
             catch (Exception ex)
             {
                 _directoryValid = false;
-                Log.Error("DiskCache - error checking diskCache.path config: {0}, message: {1}. Not caching.", _directory, ex);
+                //Log.Error("DiskCache - error checking diskCache.path config: {0}, message: {1}. Not caching.", _directory, ex);
             }
         }
 
@@ -86,15 +86,7 @@ namespace CachingFramework.Core.Caches
                     var item = value as string;
                     if (item != null)
                     {
-                        if (CacheConfiguration.Current.DiskCache.EncryptItems)
-                        {
-                            var encryptedBytes = SimpleAes.Encrypt(item);
-                            File.WriteAllBytes(newCachePath, encryptedBytes);
-                        }
-                        else
-                        {
-                            File.WriteAllText(newCachePath, item);
-                        }
+                        File.WriteAllText(newCachePath, item);
                     }
                 }
             }
@@ -138,15 +130,7 @@ namespace CachingFramework.Core.Caches
                     }
                     if (cachePath != null)
                     {
-                        if (CacheConfiguration.Current.DiskCache.EncryptItems)
-                        {
-                            var encryptedBytes = File.ReadAllBytes(cachePath);
-                            value = SimpleAes.Decrypt(encryptedBytes);
-                        }
-                        else
-                        {
-                            value = File.ReadAllText(cachePath);
-                        }
+                        value = File.ReadAllText(cachePath);
                     }
                 }
             }
@@ -222,7 +206,7 @@ namespace CachingFramework.Core.Caches
         private bool HasExceededQuota()
         {
             var size = new DirectoryInfo(_directory).GetFiles().Sum(x => x.Length);
-            return (size / (1024 * 1024)) > CacheConfiguration.Current.DiskCache.MaxSizeInMb;
+            return (size / (1024 * 1024)) > 20;
         }
     }
 }

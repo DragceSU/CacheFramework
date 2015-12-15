@@ -1,7 +1,7 @@
 ﻿using System;
 using Alachisoft.NCache.Web.Caching;
-using Sixeyed.Core.Configuration;
-using Sixeyed.Core.Logging;
+//using Sixeyed.Core.Configuration;
+//using Sixeyed.Core.Logging;
 
 namespace CachingFramework.Core.Caches
 {

@@ -19,10 +19,6 @@ namespace CachingFramework.Core
 
         AppFabric,
 
-        Memcached,
-
-        AzureTableStorage,
-
         Disk
     }
 }

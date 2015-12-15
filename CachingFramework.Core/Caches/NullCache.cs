@@ -15,7 +15,7 @@ namespace CachingFramework.Core.Caches
     {
         public override CacheType CacheType 
         {
-            get { return Caching.CacheType.Null; }
+            get { return CacheType.Null; }
         }
 
         public override void Initialise() { }

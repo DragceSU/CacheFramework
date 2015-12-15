@@ -10,6 +10,9 @@ namespace CachingFramework.Core.Caches
     {
         private DataCacheFactory _factory;
         private DataCacheFactoryConfiguration _factoryConfig;
+        private DataCacheTransportProperties _factoryTransport;
+
+        //private DataCache _factorySecurity;
         private DataCache _cache;
 
         public override CacheType CacheType
@@ -23,16 +26,30 @@ namespace CachingFramework.Core.Caches
             {
                 // Define the hosts
                 DataCacheServerEndpoint[] servers = new DataCacheServerEndpoint[1];
-                servers[0] = new DataCacheServerEndpoint("ROCJ_EDMS_DEV01", 22233);
+                servers[0] = new DataCacheServerEndpoint("EN310031.endava.net", 22233);
                 // Setup datacache factory
                 _factoryConfig = new DataCacheFactoryConfiguration();
                 _factoryConfig.Servers = servers;
+
+                _factoryTransport = new DataCacheTransportProperties()
+                                        {
+                                            ConnectionBufferSize = 131072,
+                                            MaxBufferPoolSize = 268435456,
+                                            MaxBufferSize = 8388608,
+                                            MaxOutputDelay = new TimeSpan(0, 0, 2),
+                                            ChannelInitializationTimeout = new TimeSpan(0, 0, 60),
+                                            ReceiveTimeout = new TimeSpan(0, 0, 600)
+                                        };
+                _factoryConfig.TransportProperties = _factoryTransport;
+
+                _factoryConfig.SecurityProperties = new DataCacheSecurity(DataCacheSecurityMode.None, DataCacheProtectionLevel.None);
+
                 // Create a configured DataCacheFactory object.
                 _factory = new DataCacheFactory(_factoryConfig);
 
                 // Get a cache client for the cache "NamedCache1".
                 //DataCache myDefaultCache = mycacheFactory.GetCache("NamedCache1");
-                _cache = _factory.GetDefaultCache();
+                _cache = _factory.GetCache("default");
             }
         }
 

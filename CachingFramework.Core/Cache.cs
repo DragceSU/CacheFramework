@@ -8,6 +8,8 @@ using CachingFramework.Core.Interface;
 
 namespace CachingFramework.Core
 {
+    using CachingFramework.Core.Caches;
+
     public static class Cache
     {
         public static ICache Get(CacheType cacheType)
@@ -15,15 +17,33 @@ namespace CachingFramework.Core
             ICache cache = new NullCache();
             try
             {
-                var caches = Container.GetAll<ICache>();
-                cache = (from c in caches
-                         where c.CacheType == cacheType
-                         select c).Single();
+                //var caches = Container.GetAll<ICache>();
+                //cache = (from c in caches
+                //         where c.CacheType == cacheType
+                //         select c).Single();
+                switch (cacheType)
+                {
+                    case CacheType.Memory:
+                        cache = new MemoryCache();
+                        break;
+                    case CacheType.AppFabric:
+                        cache = new AppFabricCache();
+                        break;
+                    case CacheType.Disk:
+                        cache = new DiskCache();
+                        break;
+                    case CacheType.NCacheExpress:
+                        cache = new NCacheExpress();
+                        break;
+                    case CacheType.Null:
+                        cache = new NullCache();
+                        break;
+                }
                 cache.Initialise();
             }
             catch (Exception ex)
             {
-                Log.Warn("Failed to instantiate cache of type: {0}, using null cache. Exception: {1}", cacheType, ex);
+                //Log.Warn("Failed to instantiate cache of type: {0}, using null cache. Exception: {1}", cacheType, ex);
                 cache = new NullCache();
             }
             return cache;
@@ -33,7 +53,7 @@ namespace CachingFramework.Core
         {
             get
             {
-                return Get(CacheConfiguration.Current.DefaultCacheType);
+                return Get(CacheType.Memory);
             }
         }
 
@@ -61,27 +81,11 @@ namespace CachingFramework.Core
             }
         }
 
-        public static ICache AzureTableStorage
-        {
-            get
-            {
-                return Get(CacheType.AzureTableStorage);
-            }
-        }
-
         public static ICache Disk
         {
             get
             {
                 return Get(CacheType.Disk);
-            }
-        }
-
-        public static ICache Memcached
-        {
-            get
-            {
-                return Get(CacheType.Memcached);
             }
         }
     }
