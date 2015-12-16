@@ -39,6 +39,9 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="PostSharp">
       <HintPath>packages\PostSharp.4.2.15\lib\net35-client\PostSharp.dll</HintPath>
       <Private>True</Private>
@@ -69,6 +72,10 @@
     <ProjectReference Include="..\CachingFramework.Core\CachingFramework.Core.csproj">
       <Project>{8b4b1e3e-20ce-46de-9de7-86af5e91d73b}</Project>
       <Name>CachingFramework.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Container\Container.csproj">
+      <Project>{7f473bf4-a55d-45c7-946c-82c52d020df2}</Project>
+      <Name>Container</Name>
     </ProjectReference>
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{da30b0d0-d64c-49d6-a402-96d52be6a2fa}</Project>

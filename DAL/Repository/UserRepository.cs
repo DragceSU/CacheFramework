@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DAL.IRepository;
 using DAL.Models;
 
@@ -14,7 +10,7 @@ namespace DAL.Repository
     {
         public Person GetPersonBy(int id)
         {
-            using (DBContext context = new DBContext())
+            using (var context = new DBContext())
             {
                 try
                 {
@@ -29,7 +25,7 @@ namespace DAL.Repository
 
         public Person GetPersonBy(string firstName, string lastName)
         {
-            using (DBContext context = new DBContext())
+            using (var context = new DBContext())
             {
                 try
                 {

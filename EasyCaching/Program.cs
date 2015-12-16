@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.Repository;
 using EasyCaching.APIs;
 using EasyCaching.Model;
+using Ninject;
 
 namespace EasyCaching
 {
@@ -14,14 +16,19 @@ namespace EasyCaching
         {
             // Dump call to create Entity Framework model.
             //new BookRepository().Books.ToList();
+            var kernel = new StandardKernel();
+            Container.InitializeContainer.Register(kernel); 
+
+            var userRepository = kernel.Get<UserRepository>();
+            var bookAPI = new BookApi(userRepository);
 
             foreach (var i in Enumerable.Range(0, 10))
             {
                 var start = DateTime.Now;
                 //BookApi.GetBooks("Ross L. Finney").ToList();
-                BookApi.GetPerson("David", "Bradley");
-                BookApi.GetPerson("Michael", "Raheem");
-                BookApi.GetPerson("Kevin", "Brown");
+                bookAPI.GetPerson("David", "Bradley");
+                bookAPI.GetPerson("Michael", "Raheem");
+                bookAPI.GetPerson("Kevin", "Brown");
                 var end = DateTime.Now;
                 Console.WriteLine((end - start).TotalMilliseconds);
 
