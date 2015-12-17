@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+
 //using Sixeyed.Core.Configuration;
 //using Sixeyed.Core.Cryptography;
 //using Sixeyed.Core.Logging;
@@ -83,16 +85,38 @@ namespace CachingFramework.Core.Caches
                         File.Delete(Path.Combine(_directory, existingCache));
                     }
                     var newCachePath = GetFilePath(key, expiresAt);
-                    var item = value as string;
+                    var item = ObjectToByteArray(value);
                     if (item != null)
                     {
-                        File.WriteAllText(newCachePath, item);
+                        File.WriteAllBytes(newCachePath, item);
                     }
                 }
             }
             catch (Exception ex)
             {
                 //do nothing
+            }
+        }
+
+        public static byte[] ObjectToByteArray(Object obj)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            using (var ms = new MemoryStream())
+            {
+                bf.Serialize(ms, obj);
+                return ms.ToArray();
+            }
+        }
+
+        public static Object ByteArrayToObject(byte[] arrBytes)
+        {
+            using (var memStream = new MemoryStream())
+            {
+                var binForm = new BinaryFormatter();
+                memStream.Write(arrBytes, 0, arrBytes.Length);
+                memStream.Seek(0, SeekOrigin.Begin);
+                var obj = binForm.Deserialize(memStream);
+                return obj;
             }
         }
 
@@ -130,7 +154,7 @@ namespace CachingFramework.Core.Caches
                     }
                     if (cachePath != null)
                     {
-                        value = File.ReadAllText(cachePath);
+                        value = ByteArrayToObject(File.ReadAllBytes(cachePath));
                     }
                 }
             }

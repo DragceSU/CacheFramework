@@ -11,8 +11,8 @@ namespace CachingFramework.Core.Interceptions
         public override void OnInvoke(MethodInterceptionArgs args)
         {
             var cache = MethodResultCache.GetCache(args.Method, cacheType);
-            var arguments = args.Arguments.Union(new[] { WindowsIdentity.GetCurrent().Name }).ToList();
-            var result = cache.GetCachedResult(arguments);
+            var arguments = args.Arguments.ToList();
+            var result = cache.GetCachedResult(args.Arguments.ToList());
             if (result != null)
             {
                 args.ReturnValue = result;
