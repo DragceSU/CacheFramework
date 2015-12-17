@@ -34,7 +34,7 @@ namespace EasyCaching.APIs
             }
         }
 
-        [CacheableResult(cacheType = CacheType.NCacheExpress)]
+        [CacheableResult(cacheType = CacheType.Disk)]
         public Person GetPerson(string firstName, string lastName)
         {
             //Thread.Sleep(1000);
