@@ -6,7 +6,7 @@
 //   
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace EasyCaching
+namespace SampleConsoleCaching
 {
     using System;
     using System.Linq;
@@ -15,7 +15,7 @@ namespace EasyCaching
 
     using DAL.Repository;
 
-    using EasyCaching.APIs;
+    using SampleConsoleCaching.APIs;
 
     using Ninject;
 

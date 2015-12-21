@@ -6,7 +6,7 @@
 //   
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-namespace EasyCaching.APIs
+namespace SampleConsoleCaching.APIs
 {
     using System.Collections.Generic;
     using System.Threading;
@@ -17,7 +17,7 @@ namespace EasyCaching.APIs
     using DAL.IRepository;
     using DAL.Models;
 
-    using EasyCaching.Model;
+    using SampleConsoleCaching.Model;
 
     /// <summary>
     /// </summary>
@@ -92,7 +92,7 @@ namespace EasyCaching.APIs
         /// </param>
         /// <param name="newName">
         /// </param>
-        [AffectedCacheableMethods("EasyCaching.APIs.BookApi.GetBooks")]
+        [AffectedCacheableMethods("SampleConsoleCaching.APIs.BookApi.GetBooks")]
         public static void ChangeAuthorName(string oldName, string newName)
         {
             using (var repository = new BookRepository())

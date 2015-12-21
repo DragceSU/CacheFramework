@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CachingFramework.Core", "CachingFramework.Core\CachingFramework.Core.csproj", "{8B4B1E3E-20CE-46DE-9DE7-86AF5E91D73B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyCaching", "EasyCaching\EasyCaching.csproj", "{CA080308-338A-4E3B-83DA-48801E4E87F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleConsoleCaching", "EasyCaching\SampleConsoleCaching.csproj", "{CA080308-338A-4E3B-83DA-48801E4E87F0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{2401E76A-FC04-4902-B747-F505255EE9A5}"
 EndProject
