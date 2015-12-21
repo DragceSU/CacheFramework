@@ -1,90 +1,145 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="DiskCache.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-//using Sixeyed.Core.Configuration;
+ //using Sixeyed.Core.Configuration;
 //using Sixeyed.Core.Cryptography;
 //using Sixeyed.Core.Logging;
-
 namespace CachingFramework.Core.Caches
 {
+    using System;
+    using System.IO;
+    using System.Linq;
+    using System.Runtime.Serialization.Formatters.Binary;
+
+    /// <summary>
+    /// </summary>
     public class DiskCache : CacheBase
     {
+        /// <summary>
+        /// </summary>
         private string _directory;
+
+        /// <summary>
+        /// </summary>
         private bool _directoryValid = true;
 
+        /// <summary>
+        /// </summary>
         public override CacheType CacheType
         {
-            get { return CacheType.Disk; }
+            get
+            {
+                return CacheType.Disk;
+            }
         }
 
+        /// <summary>
+        /// </summary>
         public override void Initialise()
         {
             try
             {
-                //check directory exists
-                _directory = @"E:\GitHub\DickCache";
-                if (!Directory.Exists(_directory))
+                // check directory exists
+                this._directory = @"E:\GitHub\DickCache";
+                if (!Directory.Exists(this._directory))
                 {
-                    _directoryValid = false;
-                    //Log.Error("DiskCache - directory specified in diskCache.path config: {0} does not exist. Not caching.", _directory);
+                    this._directoryValid = false;
+
+                    // Log.Error("DiskCache - directory specified in diskCache.path config: {0} does not exist. Not caching.", _directory);
                 }
-                else if (HasExceededQuota())
+                else if (this.HasExceededQuota())
                 {
-                    //Log.Warn("DiskCache - exceeded quote for directory specified in diskCache.path config: {0}. Not caching.", _directory);
+                    // Log.Warn("DiskCache - exceeded quote for directory specified in diskCache.path config: {0}. Not caching.", _directory);
                 }
             }
             catch (Exception ex)
             {
-                _directoryValid = false;
-                //Log.Error("DiskCache - error checking diskCache.path config: {0}, message: {1}. Not caching.", _directory, ex);
+                this._directoryValid = false;
+
+                // Log.Error("DiskCache - error checking diskCache.path config: {0}, message: {1}. Not caching.", _directory, ex);
             }
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="key">
+        /// </param>
+        /// <param name="value">
+        /// </param>
         protected override void SetInternal(string key, object value)
         {
-            SetInternal(key, value, null);
+            this.SetInternal(key, value, null);
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="key">
+        /// </param>
+        /// <param name="value">
+        /// </param>
+        /// <param name="validFor">
+        /// </param>
         protected override void SetInternal(string key, object value, TimeSpan validFor)
         {
             try
             {
-                SetInternal(key, value, DateTime.UtcNow.Add(validFor));
+                this.SetInternal(key, value, DateTime.UtcNow.Add(validFor));
             }
             catch (Exception ex)
             {
-                //do nothing
+                // do nothing
             }
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="key">
+        /// </param>
+        /// <param name="value">
+        /// </param>
+        /// <param name="expiresAt">
+        /// </param>
         protected override void SetInternal(string key, object value, DateTime expiresAt)
         {
-            SetInternal(key, value, expiresAt);
+            this.SetInternal(key, value, expiresAt);
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="key">
+        /// </param>
+        /// <param name="value">
+        /// </param>
+        /// <param name="expiresAt">
+        /// </param>
         private void SetInternal(string key, object value, DateTime? expiresAt)
         {
             try
             {
-                if (_directoryValid && !HasExceededQuota())
+                if (this._directoryValid && !this.HasExceededQuota())
                 {
-                    //check for a non-expiring cache:
-                    var cachePath = GetFilePath(key);
+                    // check for a non-expiring cache:
+                    var cachePath = this.GetFilePath(key);
                     if (File.Exists(cachePath))
                     {
                         File.Delete(cachePath);
                     }
-                    //check for other caches:
-                    var fileName = GetFileNameSearchPattern(key);
-                    var existingCaches = Directory.EnumerateFiles(_directory, fileName);
+
+                    // check for other caches:
+                    var fileName = this.GetFileNameSearchPattern(key);
+                    var existingCaches = Directory.EnumerateFiles(this._directory, fileName);
                     foreach (var existingCache in existingCaches)
                     {
-                        File.Delete(Path.Combine(_directory, existingCache));
+                        File.Delete(Path.Combine(this._directory, existingCache));
                     }
-                    var newCachePath = GetFilePath(key, expiresAt);
+
+                    var newCachePath = this.GetFilePath(key, expiresAt);
                     var item = ObjectToByteArray(value);
                     if (item != null)
                     {
@@ -94,13 +149,19 @@ namespace CachingFramework.Core.Caches
             }
             catch (Exception ex)
             {
-                //do nothing
+                // do nothing
             }
         }
 
-        public static byte[] ObjectToByteArray(Object obj)
+        /// <summary>
+        /// </summary>
+        /// <param name="obj">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static byte[] ObjectToByteArray(object obj)
         {
-            BinaryFormatter bf = new BinaryFormatter();
+            var bf = new BinaryFormatter();
             using (var ms = new MemoryStream())
             {
                 bf.Serialize(ms, obj);
@@ -108,7 +169,13 @@ namespace CachingFramework.Core.Caches
             }
         }
 
-        public static Object ByteArrayToObject(byte[] arrBytes)
+        /// <summary>
+        /// </summary>
+        /// <param name="arrBytes">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static object ByteArrayToObject(byte[] arrBytes)
         {
             using (var memStream = new MemoryStream())
             {
@@ -120,26 +187,35 @@ namespace CachingFramework.Core.Caches
             }
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="key">
+        /// </param>
+        /// <returns>
+        /// </returns>
         protected override object GetInternal(string key)
         {
             object value = null;
             try
             {
-                if (_directoryValid)
+                if (this._directoryValid)
                 {
-                    //check for a non-expiring cache:
-                    var cachePath = GetFilePath(key);
+                    // check for a non-expiring cache:
+                    var cachePath = this.GetFilePath(key);
                     if (!File.Exists(cachePath))
                     {
                         cachePath = null;
-                        //check for expired caches:
-                        var fileName = GetFileNameSearchPattern(key);
-                        var existingCaches = Directory.EnumerateFiles(_directory, fileName).OrderByDescending(x => x);
+
+                        // check for expired caches:
+                        var fileName = this.GetFileNameSearchPattern(key);
+                        var existingCaches =
+                            Directory.EnumerateFiles(this._directory, fileName).OrderByDescending(x => x);
                         if (existingCaches.Count() > 0)
                         {
                             var mostRecentCache = existingCaches.ElementAt(0);
-                            //if the most recent cache is live, return it -
-                            //format is {guid}.cache.{expiresAt}.expiry
+
+                            // if the most recent cache is live, return it -
+                            // format is {guid}.cache.{expiresAt}.expiry
                             if (mostRecentCache.EndsWith(".expiry"))
                             {
                                 var expiresAt = mostRecentCache.Substring(mostRecentCache.IndexOf(".expiry") - 19, 19);
@@ -147,11 +223,12 @@ namespace CachingFramework.Core.Caches
                                 var expiryDate = DateTime.Parse(expiresAtDate);
                                 if (expiryDate > DateTime.UtcNow)
                                 {
-                                    cachePath = Path.Combine(_directory, mostRecentCache);
+                                    cachePath = Path.Combine(this._directory, mostRecentCache);
                                 }
                             }
                         }
                     }
+
                     if (cachePath != null)
                     {
                         value = ByteArrayToObject(File.ReadAllBytes(cachePath));
@@ -160,18 +237,23 @@ namespace CachingFramework.Core.Caches
             }
             catch (Exception ex)
             {
-                //do nothing
+                // do nothing
             }
+
             return value;
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="key">
+        /// </param>
         protected override void RemoveInternal(string key)
         {
             try
             {
-                if (_directoryValid)
+                if (this._directoryValid)
                 {
-                    var path = GetFilePath(key);
+                    var path = this.GetFilePath(key);
                     if (File.Exists(path))
                     {
                         File.Delete(path);
@@ -180,56 +262,94 @@ namespace CachingFramework.Core.Caches
             }
             catch (Exception ex)
             {
-                //do nothing
+                // do nothing
             }
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="key">
+        /// </param>
+        /// <returns>
+        /// </returns>
         protected override bool ExistsInternal(string key)
         {
             var exists = false;
             try
             {
-                if (_directoryValid)
+                if (this._directoryValid)
                 {
-                    var path = GetFilePath(key);
+                    var path = this.GetFilePath(key);
                     exists = File.Exists(path);
                 }
             }
             catch (Exception ex)
             {
-                //do nothing
+                // do nothing
             }
+
             return exists;
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="cacheKey">
+        /// </param>
+        /// <returns>
+        /// </returns>
         private static string GetFileName(string cacheKey)
         {
             return cacheKey + ".cache";
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="cacheKey">
+        /// </param>
+        /// <returns>
+        /// </returns>
         private string GetFileNameSearchPattern(string cacheKey)
         {
             return GetFileName(cacheKey) + ".*";
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="cacheKey">
+        /// </param>
+        /// <returns>
+        /// </returns>
         private string GetFilePath(string cacheKey)
         {
-            return Path.Combine(_directory, GetFileName(cacheKey));
+            return Path.Combine(this._directory, GetFileName(cacheKey));
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="cacheKey">
+        /// </param>
+        /// <param name="expiresAt">
+        /// </param>
+        /// <returns>
+        /// </returns>
         private string GetFilePath(string cacheKey, DateTime? expiresAt)
         {
-            var path = GetFilePath(cacheKey);
+            var path = this.GetFilePath(cacheKey);
             if (expiresAt.HasValue)
             {
                 path = string.Format("{0}.{1}.expiry", path, expiresAt.Value.ToString("yyyy-MM-ddTHH_mm_ss"));
             }
+
             return path;
         }
 
+        /// <summary>
+        /// </summary>
+        /// <returns>
+        /// </returns>
         private bool HasExceededQuota()
         {
-            var size = new DirectoryInfo(_directory).GetFiles().Sum(x => x.Length);
+            var size = new DirectoryInfo(this._directory).GetFiles().Sum(x => x.Length);
             return (size / (1024 * 1024)) > 20;
         }
     }

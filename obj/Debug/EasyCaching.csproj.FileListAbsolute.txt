@@ -14,3 +14,7 @@ C:\Users\Dragan\Desktop\Cache\EasyCaching\obj\Debug\EasyCaching.exe.postsharp
 C:\Users\Dragan\Desktop\Cache\EasyCaching\obj\Debug\EasyCaching.csprojResolveAssemblyReference.cache
 C:\Users\Dragan\Desktop\Cache\EasyCaching\bin\Debug\Cache.dll
 C:\Users\Dragan\Desktop\Cache\EasyCaching\bin\Debug\Cache.pdb
+E:\GitHub\CacheFramework\CacheFramework\bin\Debug\EasyCaching.exe.config
+E:\GitHub\CacheFramework\CacheFramework\obj\Debug\EasyCaching.exe
+E:\GitHub\CacheFramework\CacheFramework\obj\Debug\EasyCaching.pdb
+E:\GitHub\CacheFramework\CacheFramework\obj\Debug\EasyCaching.csprojResolveAssemblyReference.cache

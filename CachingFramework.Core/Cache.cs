@@ -1,54 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CachingFramework.Core.Interface;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Cache.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace CachingFramework.Core
 {
-    using CachingFramework.Core.Caches;
+    using System;
+    using System.Linq;
 
+    using CachingFramework.Core.Caches;
+    using CachingFramework.Core.Interface;
+
+    using Ninject;
+
+    /// <summary>
+    /// </summary>
     public static class Cache
     {
-        public static ICache Get(CacheType cacheType)
-        {
-            ICache cache = new NullCache();
-            try
-            {
-                //var caches = Container.GetAll<ICache>();
-                //cache = (from c in caches
-                //         where c.CacheType == cacheType
-                //         select c).Single();
-                switch (cacheType)
-                {
-                    case CacheType.Memory:
-                        cache = new MemoryCache();
-                        break;
-                    case CacheType.AppFabric:
-                        cache = new AppFabricCache();
-                        break;
-                    case CacheType.Disk:
-                        cache = new DiskCache();
-                        break;
-                    case CacheType.NCacheExpress:
-                        cache = new NCacheExpress();
-                        break;
-                    case CacheType.Null:
-                        cache = new NullCache();
-                        break;
-                }
-                cache.Initialise();
-            }
-            catch (Exception ex)
-            {
-                //Log.Warn("Failed to instantiate cache of type: {0}, using null cache. Exception: {1}", cacheType, ex);
-                cache = new NullCache();
-            }
-            return cache;
-        }
+        /// <summary>
+        /// </summary>
+        private static IKernel _kernel;
 
+        /// <summary>
+        /// </summary>
         public static ICache Default
         {
             get
@@ -57,6 +35,8 @@ namespace CachingFramework.Core
             }
         }
 
+        /// <summary>
+        /// </summary>
         public static ICache Memory
         {
             get
@@ -65,6 +45,8 @@ namespace CachingFramework.Core
             }
         }
 
+        /// <summary>
+        /// </summary>
         public static ICache NCacheExpress
         {
             get
@@ -73,6 +55,8 @@ namespace CachingFramework.Core
             }
         }
 
+        /// <summary>
+        /// </summary>
         public static ICache AppFabric
         {
             get
@@ -81,12 +65,37 @@ namespace CachingFramework.Core
             }
         }
 
+        /// <summary>
+        /// </summary>
         public static ICache Disk
         {
             get
             {
                 return Get(CacheType.Disk);
             }
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="cacheType">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static ICache Get(CacheType cacheType)
+        {
+            ICache cache = new NullCache();
+            try
+            {
+                var caches = Container.Container.GetAll<CacheBase>();
+                cache = (from c in caches where c.CacheType == cacheType select c).Single();
+                cache.Initialise();
+            }
+            catch (Exception ex)
+            {
+                cache = new NullCache();
+            }
+
+            return cache;
         }
     }
 }

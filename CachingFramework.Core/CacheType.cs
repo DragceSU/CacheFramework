@@ -1,24 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CacheType.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace CachingFramework.Core
 {
+    /// <summary>
+    /// </summary>
     public enum CacheType
     {
         /// <summary>
-        /// No cache type set
+        ///     No cache type set
         /// </summary>
-        Null = 0,
+        Null = 0, 
 
-        Memory,
+        /// <summary>
+        /// </summary>
+        Memory, 
 
-        NCacheExpress,
+        /// <summary>
+        /// </summary>
+        NCacheExpress, 
 
-        AppFabric,
+        /// <summary>
+        /// </summary>
+        AppFabric, 
 
+        /// <summary>
+        /// </summary>
         Disk
     }
 }

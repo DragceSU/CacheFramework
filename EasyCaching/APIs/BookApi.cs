@@ -1,46 +1,97 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using CachingFramework.Core;
-using CachingFramework.Core.Interceptions;
-using DAL.IRepository;
-using DAL.Models;
-using EasyCaching.Model;
-
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="BookApi.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 namespace EasyCaching.APIs
 {
+    using System.Collections.Generic;
+    using System.Threading;
+
+    using CachingFramework.Core;
+    using CachingFramework.Core.Interceptions;
+
+    using DAL.IRepository;
+    using DAL.Models;
+
+    using EasyCaching.Model;
+
+    /// <summary>
+    /// </summary>
     public class BookApi
     {
+        /// <summary>
+        /// </summary>
         private readonly IUserRepository _userRepository;
 
+        /// <summary>
+        /// </summary>
+        /// <param name="userRepository">
+        /// </param>
         public BookApi(IUserRepository userRepository)
         {
-            _userRepository = userRepository;
+            this._userRepository = userRepository;
         }
 
-        [CacheableResult(cacheType = CacheType.NCacheExpress)]
+        /// <summary>
+        /// </summary>
+        /// <param name="authorName">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        [CacheableResult(cacheType = CacheType.Memory)]
         public static IEnumerable<Book> GetBooks(string authorName)
         {
             Thread.Sleep(1000);
             using (var repository = new BookRepository())
             {
-                //return repository.Authors
-                //                 .Where(a => a.Name == authorName)
-                //                 .SelectMany(a => a.Books)
-                //                 .ToList();
                 return new List<Book>
-                {
-                    new Book {Id = 1, Title = "Life Of Brian", Authors = {new Author {Id = 1, Name = "Ross L. Finney"}}}
-                };
+                           {
+                               new Book
+                                   {
+                                       Id = 1, 
+                                       Title = "Life Of Brian", 
+                                       Authors = {
+                                                    new Author { Id = 1, Name = "Ross L. Finney" } 
+                                                 }
+                                   }
+                           };
             }
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="firstName">
+        /// </param>
+        /// <param name="lastName">
+        /// </param>
+        /// <returns>
+        /// </returns>
         [CacheableResult(cacheType = CacheType.Disk)]
         public Person GetPerson(string firstName, string lastName)
         {
-            //Thread.Sleep(1000);
-            return _userRepository.GetPersonBy(firstName, lastName);
+            return this._userRepository.GetPersonBy(firstName, lastName);
         }
 
+        /// <summary>
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        [CacheableResult(cacheType = CacheType.Disk)]
+        public IList<Person> GetAllPersons()
+        {
+            return this._userRepository.GetAllPersons();
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="oldName">
+        /// </param>
+        /// <param name="newName">
+        /// </param>
         [AffectedCacheableMethods("EasyCaching.APIs.BookApi.GetBooks")]
         public static void ChangeAuthorName(string oldName, string newName)
         {

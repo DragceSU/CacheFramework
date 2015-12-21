@@ -1,23 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DAL.Repository;
-using EasyCaching.APIs;
-using EasyCaching.Model;
-using Ninject;
-
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Program.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 namespace EasyCaching
 {
-    class Program
+    using System;
+    using System.Linq;
+
+    using Container;
+
+    using DAL.Repository;
+
+    using EasyCaching.APIs;
+
+    using Ninject;
+
+    /// <summary>
+    /// </summary>
+    internal class Program
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// </summary>
+        /// <param name="args">
+        /// </param>
+        private static void Main(string[] args)
         {
-            // Dump call to create Entity Framework model.
-            //new BookRepository().Books.ToList();
             var kernel = new StandardKernel();
-            Container.InitializeContainer.Register(kernel); 
+            InitializeContainer.Register(kernel);
 
             var userRepository = kernel.Get<UserRepository>();
             var bookAPI = new BookApi(userRepository);
@@ -25,17 +38,31 @@ namespace EasyCaching
             foreach (var i in Enumerable.Range(0, 10))
             {
                 var start = DateTime.Now;
-                //BookApi.GetBooks("Ross L. Finney").ToList();
+
+                // BookApi.GetBooks("Ross L. Finney").ToList();
                 bookAPI.GetPerson("David", "Bradley");
                 bookAPI.GetPerson("Michael", "Raheem");
                 bookAPI.GetPerson("Kevin", "Brown");
                 var end = DateTime.Now;
-                Console.WriteLine((end - start).TotalMilliseconds);
+                Console.WriteLine(
+                    "Iteration {0} completed within: {1} miliseconds for a single cached object.", 
+                    i + 1, 
+                    (end - start).TotalMilliseconds);
+
+                start = DateTime.Now;
+
+                // BookApi.GetBooks("Ross L. Finney").ToList();
+                bookAPI.GetAllPersons();
+                end = DateTime.Now;
+                Console.WriteLine(
+                    "Iteration {0} completed within: {1} miliseconds for a list of cached objects.",
+                    i + 1,
+                    (end - start).TotalMilliseconds);
 
                 // Uncommenting the line below causes the cached data to be invalidated
                 // in each iteration, hence raising the exceution time of each iteration
                 // to more than 1 second.
-                //BookApi.ChangeAuthorName("a", "b");
+                // BookApi.ChangeAuthorName("a", "b");
             }
         }
     }

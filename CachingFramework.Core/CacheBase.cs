@@ -1,17 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CachingFramework.Core.Caches;
-using CachingFramework.Core.Interface;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="CacheBase.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace CachingFramework.Core
 {
+    using System;
+
+    using CachingFramework.Core.Caches;
+    using CachingFramework.Core.Interface;
+
+    /// <summary>
+    /// </summary>
     public abstract class CacheBase : ICache
     {
+        /// <summary>
+        /// </summary>
         private static NullCache _nullCache = new NullCache();
 
+        /// <summary>
+        /// </summary>
         private CacheBase Current
         {
             get
@@ -20,43 +32,130 @@ namespace CachingFramework.Core
             }
         }
 
+        /// <summary>
+        /// </summary>
         public abstract CacheType CacheType { get; }
-        public abstract void Initialise();
-        protected abstract void SetInternal(string key, object value);
-        protected abstract void SetInternal(string key, object value, DateTime expiresAt);
-        protected abstract void SetInternal(string key, object value, TimeSpan validFor);
-        protected abstract object GetInternal(string key);
-        protected abstract void RemoveInternal(string key);
-        protected abstract bool ExistsInternal(string key);
 
+        /// <summary>
+        /// </summary>
+        public abstract void Initialise();
+
+        /// <summary>
+        /// </summary>
+        /// <param name="key">
+        /// </param>
+        /// <param name="value">
+        /// </param>
         public void Set(string key, object value)
         {
-            Current.SetInternal(key, value);
+            this.Current.SetInternal(key, value);
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="key">
+        /// </param>
+        /// <param name="value">
+        /// </param>
+        /// <param name="expiresAt">
+        /// </param>
         public void Set(string key, object value, DateTime expiresAt)
         {
-            Current.SetInternal(key, value, expiresAt);
+            this.Current.SetInternal(key, value, expiresAt);
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="key">
+        /// </param>
+        /// <param name="value">
+        /// </param>
+        /// <param name="validFor">
+        /// </param>
         public void Set(string key, object value, TimeSpan validFor)
         {
-            Current.SetInternal(key, value, validFor);
+            this.Current.SetInternal(key, value, validFor);
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="key">
+        /// </param>
+        /// <returns>
+        /// </returns>
         public object Get(string key)
         {
-            return Current.GetInternal(key);
+            return this.Current.GetInternal(key);
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="key">
+        /// </param>
         public void Remove(string key)
         {
-            Current.RemoveInternal(key);
+            this.Current.RemoveInternal(key);
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="key">
+        /// </param>
+        /// <returns>
+        /// </returns>
         public bool Exists(string key)
         {
-            return Current.ExistsInternal(key);
+            return this.Current.ExistsInternal(key);
         }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="key">
+        /// </param>
+        /// <param name="value">
+        /// </param>
+        protected abstract void SetInternal(string key, object value);
+
+        /// <summary>
+        /// </summary>
+        /// <param name="key">
+        /// </param>
+        /// <param name="value">
+        /// </param>
+        /// <param name="expiresAt">
+        /// </param>
+        protected abstract void SetInternal(string key, object value, DateTime expiresAt);
+
+        /// <summary>
+        /// </summary>
+        /// <param name="key">
+        /// </param>
+        /// <param name="value">
+        /// </param>
+        /// <param name="validFor">
+        /// </param>
+        protected abstract void SetInternal(string key, object value, TimeSpan validFor);
+
+        /// <summary>
+        /// </summary>
+        /// <param name="key">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        protected abstract object GetInternal(string key);
+
+        /// <summary>
+        /// </summary>
+        /// <param name="key">
+        /// </param>
+        protected abstract void RemoveInternal(string key);
+
+        /// <summary>
+        /// </summary>
+        /// <param name="key">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        protected abstract bool ExistsInternal(string key);
     }
 }
