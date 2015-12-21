@@ -15,9 +15,9 @@ namespace SampleConsoleCaching
 
     using DAL.Repository;
 
-    using SampleConsoleCaching.APIs;
-
     using Ninject;
+
+    using SampleConsoleCaching.APIs;
 
     /// <summary>
     /// </summary>
@@ -55,8 +55,8 @@ namespace SampleConsoleCaching
                 bookAPI.GetAllPersons();
                 end = DateTime.Now;
                 Console.WriteLine(
-                    "Iteration {0} completed within: {1} miliseconds for a list of cached objects.",
-                    i + 1,
+                    "Iteration {0} completed within: {1} miliseconds for a list of cached objects.", 
+                    i + 1, 
                     (end - start).TotalMilliseconds);
 
                 // Uncommenting the line below causes the cached data to be invalidated

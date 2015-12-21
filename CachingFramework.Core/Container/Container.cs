@@ -137,12 +137,12 @@ namespace CachingFramework.Core.Container
                     break;
                 default:
                     _kernel.Bind(
-                       x =>
-                       x.FromThisAssembly()
-                           .SelectAllClasses()
-                           .InheritedFrom<T>()
-                           .BindBase()
-                           .Configure(c => c.InSingletonScope()));
+                        x =>
+                        x.FromThisAssembly()
+                            .SelectAllClasses()
+                            .InheritedFrom<T>()
+                            .BindBase()
+                            .Configure(c => c.InSingletonScope()));
                     break;
             }
         }
@@ -175,12 +175,12 @@ namespace CachingFramework.Core.Container
         /// <summary>
         ///     New object instance created on every resolution
         /// </summary>
-        Transient,
+        Transient, 
 
         /// <summary>
         ///     Single object used for every resolution within an App Domain
         /// </summary>
-        Singleton,
+        Singleton, 
 
         /// <summary>
         ///     Single object used for every resolution within a thread

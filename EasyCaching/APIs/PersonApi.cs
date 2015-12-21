@@ -6,17 +6,18 @@
 //   
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
-using System.Collections.Generic;
-using System.Threading;
-using CachingFramework.Core;
-using CachingFramework.Core.Interceptions;
-using DAL.IRepository;
-using DAL.Models;
-using SampleConsoleCaching.Model;
-
 namespace SampleConsoleCaching.APIs
 {
+    using System.Collections.Generic;
+
+    using CachingFramework.Core;
+    using CachingFramework.Core.Interceptions;
+
+    using DAL.IRepository;
+    using DAL.Models;
+
+    using SampleConsoleCaching.Model;
+
     /// <summary>
     /// </summary>
     public class PersonApi
@@ -31,7 +32,7 @@ namespace SampleConsoleCaching.APIs
         /// </param>
         public PersonApi(IUserRepository userRepository)
         {
-            _userRepository = userRepository;
+            this._userRepository = userRepository;
         }
 
         /// <summary>
@@ -45,7 +46,7 @@ namespace SampleConsoleCaching.APIs
         [CacheableResult(cacheType = CacheType.AppFabric)]
         public Person GetPerson(string firstName, string lastName)
         {
-            return _userRepository.GetPersonBy(firstName, lastName);
+            return this._userRepository.GetPersonBy(firstName, lastName);
         }
 
         /// <summary>
@@ -55,7 +56,7 @@ namespace SampleConsoleCaching.APIs
         [CacheableResult(cacheType = CacheType.AppFabric)]
         public IList<Person> GetAllPersons()
         {
-            return _userRepository.GetAllPersons();
+            return this._userRepository.GetAllPersons();
         }
 
         /// <summary>

@@ -6,7 +6,6 @@
 //   
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace CachingFramework.Core.Caches
 {
     using System;
@@ -60,9 +59,9 @@ namespace CachingFramework.Core.Caches
 
                 this._factoryTransport = new DataCacheTransportProperties
                                              {
-                                                 ConnectionBufferSize = 131072, 
-                                                 MaxBufferPoolSize = 268435456, 
-                                                 MaxBufferSize = 8388608, 
+                                                 ConnectionBufferSize = 13107252, 
+                                                 MaxBufferPoolSize = 26843545652, 
+                                                 MaxBufferSize = 838860852, 
                                                  MaxOutputDelay = new TimeSpan(0, 0, 2), 
                                                  ChannelInitializationTimeout =
                                                      new TimeSpan(0, 0, 60), 

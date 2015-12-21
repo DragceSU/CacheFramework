@@ -6,9 +6,6 @@
 //   
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
- //using Sixeyed.Core.Configuration;
-//using Sixeyed.Core.Logging;
 namespace CachingFramework.Core.Caches
 {
     using System;

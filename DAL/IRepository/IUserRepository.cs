@@ -6,7 +6,6 @@
 //   
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace DAL.IRepository
 {
     using System.Collections.Generic;
@@ -35,6 +34,10 @@ namespace DAL.IRepository
         /// </returns>
         Person GetPersonBy(string firstName, string lastName);
 
+        /// <summary>
+        /// </summary>
+        /// <returns>
+        /// </returns>
         IList<Person> GetAllPersons();
     }
 }

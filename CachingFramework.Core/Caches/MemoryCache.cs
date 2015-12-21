@@ -7,13 +7,11 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-
-
 using sys = System.Runtime.Caching;
+
 // using Sixeyed.Core.Configuration;
 
 // using Sixeyed.Core.Logging;
-
 namespace CachingFramework.Core.Caches
 {
     using System;

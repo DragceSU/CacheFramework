@@ -6,12 +6,12 @@
 //   
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace DAL.Repository
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
+
     using DAL.IRepository;
     using DAL.Models;
 
@@ -64,6 +64,10 @@ namespace DAL.Repository
             }
         }
 
+        /// <summary>
+        /// </summary>
+        /// <returns>
+        /// </returns>
         public IList<Person> GetAllPersons()
         {
             using (var context = new DBContext())
