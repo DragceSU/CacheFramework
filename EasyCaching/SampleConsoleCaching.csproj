@@ -72,7 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="APIs\BookApi.cs" />
+    <Compile Include="APIs\PersonApi.cs" />
     <Compile Include="Model\Book.cs" />
     <Compile Include="Model\Author.cs" />
     <Compile Include="Model\BookRepository.cs" />

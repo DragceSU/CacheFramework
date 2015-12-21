@@ -33,7 +33,7 @@ namespace SampleConsoleCaching
             InitializeContainer.Register(kernel);
 
             var userRepository = kernel.Get<UserRepository>();
-            var bookAPI = new BookApi(userRepository);
+            var bookAPI = new PersonApi(userRepository);
 
             foreach (var i in Enumerable.Range(0, 10))
             {

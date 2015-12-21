@@ -6,22 +6,20 @@
 //   
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
+using System.Collections.Generic;
+using System.Threading;
+using CachingFramework.Core;
+using CachingFramework.Core.Interceptions;
+using DAL.IRepository;
+using DAL.Models;
+using SampleConsoleCaching.Model;
+
 namespace SampleConsoleCaching.APIs
 {
-    using System.Collections.Generic;
-    using System.Threading;
-
-    using CachingFramework.Core;
-    using CachingFramework.Core.Interceptions;
-
-    using DAL.IRepository;
-    using DAL.Models;
-
-    using SampleConsoleCaching.Model;
-
     /// <summary>
     /// </summary>
-    public class BookApi
+    public class PersonApi
     {
         /// <summary>
         /// </summary>
@@ -31,35 +29,9 @@ namespace SampleConsoleCaching.APIs
         /// </summary>
         /// <param name="userRepository">
         /// </param>
-        public BookApi(IUserRepository userRepository)
+        public PersonApi(IUserRepository userRepository)
         {
-            this._userRepository = userRepository;
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="authorName">
-        /// </param>
-        /// <returns>
-        /// </returns>
-        [CacheableResult(cacheType = CacheType.Memory)]
-        public static IEnumerable<Book> GetBooks(string authorName)
-        {
-            Thread.Sleep(1000);
-            using (var repository = new BookRepository())
-            {
-                return new List<Book>
-                           {
-                               new Book
-                                   {
-                                       Id = 1, 
-                                       Title = "Life Of Brian", 
-                                       Authors = {
-                                                    new Author { Id = 1, Name = "Ross L. Finney" } 
-                                                 }
-                                   }
-                           };
-            }
+            _userRepository = userRepository;
         }
 
         /// <summary>
@@ -70,20 +42,20 @@ namespace SampleConsoleCaching.APIs
         /// </param>
         /// <returns>
         /// </returns>
-        [CacheableResult(cacheType = CacheType.Disk)]
+        [CacheableResult(cacheType = CacheType.AppFabric)]
         public Person GetPerson(string firstName, string lastName)
         {
-            return this._userRepository.GetPersonBy(firstName, lastName);
+            return _userRepository.GetPersonBy(firstName, lastName);
         }
 
         /// <summary>
         /// </summary>
         /// <returns>
         /// </returns>
-        [CacheableResult(cacheType = CacheType.Disk)]
+        [CacheableResult(cacheType = CacheType.AppFabric)]
         public IList<Person> GetAllPersons()
         {
-            return this._userRepository.GetAllPersons();
+            return _userRepository.GetAllPersons();
         }
 
         /// <summary>
