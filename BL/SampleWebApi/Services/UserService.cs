@@ -6,7 +6,6 @@
 //   
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
-
 namespace SampleWebApi.Services
 {
     using System.Collections.Generic;
@@ -56,7 +55,7 @@ namespace SampleWebApi.Services
         [CacheableResult(cacheType = CacheType.NCacheExpress)]
         public List<Person> GetAllPersons()
         {
-            return this._userRepository.GetAllPersons().Take(15).ToList();
+            return this._userRepository.GetAllPersons().Take(30).ToList();
         }
     }
 }

@@ -8,16 +8,15 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace SampleWebApi
 {
+    using System.Web;
     using System.Web.Http;
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
 
-    using SampleWebApi.App_Start;
-
     /// <summary>
     /// </summary>
-    public class WebApiApplication : System.Web.HttpApplication
+    public class WebApiApplication : HttpApplication
     {
         /// <summary>
         /// </summary>
@@ -28,7 +27,8 @@ namespace SampleWebApi
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            //NinjectWebCommon.Start();
+
+            // NinjectWebCommon.Start();
         }
     }
 }

@@ -1,9 +1,20 @@
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="IUserService.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
 namespace SampleWebApi.Services
 {
     using System.Collections.Generic;
 
     using DAL.Models;
 
+    /// <summary>
+    /// </summary>
     public interface IUserService
     {
         /// <summary>

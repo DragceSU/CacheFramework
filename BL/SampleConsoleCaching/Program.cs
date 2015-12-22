@@ -33,16 +33,16 @@ namespace SampleConsoleCaching
             InitializeContainer.Register(kernel);
 
             var userRepository = kernel.Get<UserRepository>();
-            var bookAPI = new PersonApi(userRepository);
+            var personAPI = new PersonApi(userRepository);
 
             foreach (var i in Enumerable.Range(0, 10))
             {
                 var start = DateTime.Now;
 
-                // BookApi.GetBooks("Ross L. Finney").ToList();
-                bookAPI.GetPerson("David", "Bradley");
-                bookAPI.GetPerson("Michael", "Raheem");
-                bookAPI.GetPerson("Kevin", "Brown");
+                // personAPI.GetBooks("Ross L. Finney").ToList();
+                personAPI.GetPerson("David", "Bradley");
+                personAPI.GetPerson("Michael", "Raheem");
+                personAPI.GetPerson("Kevin", "Brown");
                 var end = DateTime.Now;
                 Console.WriteLine(
                     "Iteration {0} completed within: {1} miliseconds for a single cached object.", 
@@ -51,8 +51,8 @@ namespace SampleConsoleCaching
 
                 start = DateTime.Now;
 
-                // BookApi.GetBooks("Ross L. Finney").ToList();
-                bookAPI.GetAllPersons();
+                // personAPI.GetBooks("Ross L. Finney").ToList();
+                personAPI.GetAllPersons();
                 end = DateTime.Now;
                 Console.WriteLine(
                     "Iteration {0} completed within: {1} miliseconds for a list of cached objects.", 
@@ -62,7 +62,7 @@ namespace SampleConsoleCaching
                 // Uncommenting the line below causes the cached data to be invalidated
                 // in each iteration, hence raising the exceution time of each iteration
                 // to more than 1 second.
-                // BookApi.ChangeAuthorName("a", "b");
+                // personAPI.ChangeAuthorName("a", "b");
             }
         }
     }

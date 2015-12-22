@@ -1,5 +1,20 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(SampleWebApi.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(SampleWebApi.App_Start.NinjectWebCommon), "Stop")]
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="NinjectWebCommon.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+
+
+using SampleWebApi.App_Start;
+
+using WebActivatorEx;
+
+[assembly: PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
+[assembly: ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
 
 namespace SampleWebApi.App_Start
 {
@@ -16,12 +31,16 @@ namespace SampleWebApi.App_Start
 
     using SampleWebApi.Services;
 
+    /// <summary>
+    /// </summary>
     public static class NinjectWebCommon
     {
+        /// <summary>
+        /// </summary>
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         /// <summary>
-        /// Starts the application
+        ///     Starts the application
         /// </summary>
         public static void Start()
         {
@@ -31,7 +50,7 @@ namespace SampleWebApi.App_Start
         }
 
         /// <summary>
-        /// Stops the application.
+        ///     Stops the application.
         /// </summary>
         public static void Stop()
         {
@@ -39,7 +58,7 @@ namespace SampleWebApi.App_Start
         }
 
         /// <summary>
-        /// Creates the kernel that will manage your application.
+        ///     Creates the kernel that will manage your application.
         /// </summary>
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
@@ -63,7 +82,9 @@ namespace SampleWebApi.App_Start
         /// <summary>
         /// Load your modules or register your services here!
         /// </summary>
-        /// <param name="kernel">The kernel.</param>
+        /// <param name="kernel">
+        /// The kernel.
+        /// </param>
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IUserRepository>().To<UserRepository>().InSingletonScope();
