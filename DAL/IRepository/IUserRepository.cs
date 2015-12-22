@@ -39,5 +39,19 @@ namespace DAL.IRepository
         /// <returns>
         /// </returns>
         IList<Person> GetAllPersons();
+
+        /// <summary>
+        /// </summary>
+        /// <param name="oldName">
+        /// </param>
+        /// <param name="oldLastName">
+        /// </param>
+        /// <param name="newFirstName">
+        /// </param>
+        /// <param name="newLastName">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        bool ChangeNameBy(string oldName, string oldLastName, string newFirstName, string newLastName);
     }
 }

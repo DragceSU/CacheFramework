@@ -8,8 +8,10 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace SampleWebApi.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Runtime.Serialization;
     using System.Web.Http;
     using System.Web.Http.Results;
 
@@ -21,6 +23,7 @@ namespace SampleWebApi.Controllers
     /// <summary>
     /// </summary>
     // [Authorize]
+    [RoutePrefix("api")]
     public class PersonController : ApiController
     {
         /// <summary>
@@ -62,5 +65,43 @@ namespace SampleWebApi.Controllers
         {
             return this.Json(new UserService(this._userRepository).GetAllPersons().Take(10).ToList());
         }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="oldName">
+        /// </param>
+        /// <param name="oldLastName">
+        /// </param>
+        /// <param name="newName">
+        /// </param>
+        /// <param name="newLastName">
+        /// </param>
+        /// <param name="personObj"></param>
+        /// <returns>
+        /// </returns>
+        [HttpPost]
+        [Route("upload")]
+        public JsonResult<bool> ChangeNameBy(UpdatePerson personObj)
+        {
+            return
+                this.Json(
+                    new UserService(this._userRepository).ChangeNameBy(personObj.oldName, personObj.oldLastName, personObj.newName, personObj.newLastName));
+        }
+
+        
+    }
+
+    [DataContract]
+    [Serializable]
+    public class UpdatePerson
+    {
+        [DataMember]
+        public string oldName { get; set; }
+        [DataMember]
+        public string oldLastName { get; set; }
+        [DataMember]
+        public string newName { get; set; }
+        [DataMember]
+        public string newLastName { get; set; }
     }
 }

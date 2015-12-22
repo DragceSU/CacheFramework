@@ -57,5 +57,26 @@ namespace SampleWebApi.Services
         {
             return this._userRepository.GetAllPersons().Take(30).ToList();
         }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="oldName">
+        /// </param>
+        /// <param name="oldLastName">
+        /// </param>
+        /// <param name="newName">
+        /// </param>
+        /// <param name="newLastName">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        [AffectedCacheableMethods("SampleWebApi.Services.UserService.GetPerson")]
+        public bool ChangeNameBy(string oldName, string oldLastName, string newName, string newLastName)
+        {
+            if (this._userRepository.ChangeNameBy(oldName, oldLastName, newName, newLastName))
+                return true;
+            else
+                return false;
+        }
     }
 }

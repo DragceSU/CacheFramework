@@ -82,5 +82,36 @@ namespace DAL.Repository
                 }
             }
         }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="oldName">
+        /// </param>
+        /// <param name="oldLastName">
+        /// </param>
+        /// <param name="newFirstName">
+        /// </param>
+        /// <param name="newLastName">
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public bool ChangeNameBy(string oldName, string oldLastName, string newFirstName, string newLastName)
+        {
+            using (var context = new DBContext())
+            {
+                try
+                {
+                    var person = context.People.FirstOrDefault(a => a.FirstName == oldName && a.LastName == oldLastName);
+                    person.FirstName = newFirstName;
+                    person.LastName = newLastName;
+                    context.SaveChanges();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+            }
+        }
     }
 }

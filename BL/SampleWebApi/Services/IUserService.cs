@@ -32,5 +32,7 @@ namespace SampleWebApi.Services
         /// <returns>
         /// </returns>
         List<Person> GetAllPersons();
+
+        bool ChangeNameBy(string oldName, string oldLastName, string newName, string newLastName);
     }
 }
