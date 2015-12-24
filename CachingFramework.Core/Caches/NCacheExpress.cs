@@ -54,10 +54,10 @@ namespace CachingFramework.Core.Caches
         protected override void SetInternal(string key, object value)
         {
             NCache.Caches[this._cacheName].Insert(
-                key, 
-                value, 
-                this.NoAbsoluteExpiry, 
-                this.NoSlidingExpiry, 
+                key,
+                value,
+                this.NoAbsoluteExpiry,
+                this.NoSlidingExpiry,
                 CacheItemPriority.Default);
         }
 
@@ -72,10 +72,10 @@ namespace CachingFramework.Core.Caches
         protected override void SetInternal(string key, object value, DateTime expiresAt)
         {
             NCache.Caches[this._cacheName].Insert(
-                key, 
-                value, 
-                expiresAt, 
-                this.NoSlidingExpiry, 
+                key,
+                value,
+                expiresAt,
+                this.NoSlidingExpiry,
                 CacheItemPriority.Default);
         }
 
@@ -89,12 +89,13 @@ namespace CachingFramework.Core.Caches
         /// </param>
         protected override void SetInternal(string key, object value, TimeSpan validFor)
         {
-            NCache.Caches[this._cacheName].Insert(
-                key, 
-                value, 
-                this.NoAbsoluteExpiry, 
-                validFor, 
-                CacheItemPriority.Default);
+            if (value != null)
+                NCache.Caches[this._cacheName].Insert(
+                    key,
+                    value,
+                    this.NoAbsoluteExpiry,
+                    validFor,
+                    CacheItemPriority.Default);
         }
 
         /// <summary>
@@ -134,19 +135,42 @@ namespace CachingFramework.Core.Caches
         {
             if (this._cacheName == null)
             {
-                this._cacheName = "EN310031.endava.net";
+                this._cacheName = CacheDetails.NCacheReplicated;
 
                 // Log.Debug("NCacheExpress.Initialise - initialising with cacheName: {0}", _cacheName);
                 this.NoAbsoluteExpiry = DateTime.MaxValue;
                 this.NoSlidingExpiry = new TimeSpan(0);
                 var initParams = new CacheInitParams();
                 var cacheServerInfos = new CacheServerInfo[1];
-                cacheServerInfos[0] = new CacheServerInfo("localhost", 8250);
+                cacheServerInfos[0] = new CacheServerInfo(CacheDetails.NCacheServer, CacheDetails.NCacheReplicatedPort);
                 initParams.ServerList = cacheServerInfos;
                 NCache.InitializeCache(this._cacheName);
-
-                // NCache.InitializeCache(_cacheName, initParams);
             }
         }
+    }
+
+    /// <summary>
+    /// </summary>
+    internal struct CacheDetails
+    {
+        /// <summary>
+        /// </summary>
+        public static string NCacheReplicated = "EN310031.endava.net";
+
+        /// <summary>
+        /// </summary>
+        public static int NCacheReplicatedPort = 8250;
+
+        /// <summary>
+        /// </summary>
+        public static string NCachePartitioned = "EN310031.endava.net.Partitioned";
+
+        /// <summary>
+        /// </summary>
+        public static int NCachePartitionedPort = 8251;
+
+        /// <summary>
+        /// </summary>
+        public static string NCacheServer = "localhost";
     }
 }

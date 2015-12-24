@@ -43,7 +43,7 @@ namespace SampleConsoleCaching.APIs
         /// </param>
         /// <returns>
         /// </returns>
-        [CacheableResult(cacheType = CacheType.NCacheExpress)]
+        [CacheableResult(cacheType = CacheType.Disk)]
         public Person GetPerson(string firstName, string lastName)
         {
             return this._userRepository.GetPersonBy(firstName, lastName);
@@ -53,7 +53,7 @@ namespace SampleConsoleCaching.APIs
         /// </summary>
         /// <returns>
         /// </returns>
-        [CacheableResult(cacheType = CacheType.NCacheExpress)]
+        [CacheableResult(cacheType = CacheType.Disk)]
         public IList<Person> GetAllPersons()
         {
             return this._userRepository.GetAllPersons();
